@@ -7,7 +7,7 @@ export const PostList = createContext({
 });
 
 const postListReducer = (currPostList, action) => {
-  return currPostList;
+  return  currPostList;
 };
 
 const PostListProvider = ({ children }) => {
