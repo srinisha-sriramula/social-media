@@ -7,7 +7,7 @@ export const PostList = createContext({
 });
 
 const postListReducer = (currPostList, action) => {
-  return  currPostList;
+  return currPostList;
 };
 
 const PostListProvider = ({ children }) => {
@@ -44,5 +44,7 @@ const DEFAULT_POST_LIST = [
     userId: "user-12",
     tags: ["unbelievable", "graduaton"],
   },
+  
+  
 ];
 export default PostListProvider;
