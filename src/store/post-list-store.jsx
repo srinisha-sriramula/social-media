@@ -16,7 +16,9 @@ const PostListProvider = ({ children }) => {
     DEFAULT_POST_LIST,
   );
   const addPost = () => {};
-  const deletePost = () => {};
+  const deletePost = (postId) => {
+    console.log(`delete post for ${postId}`)
+  };
   return (
     <>
       <PostList.Provider
