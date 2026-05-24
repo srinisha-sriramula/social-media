@@ -20,7 +20,7 @@ const Post = ({ post }) => {
           <span  key={tag}  className="badge text-bg-primary hashtag ">{tag}</span>
         ))}
         <div className="alert alert-success reactions" role="alert">
-          A simple success alert—check it out!
+          This post has been reacted by {post.reactions} people
         </div>
       </div>
     </div>
