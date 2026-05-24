@@ -1,7 +1,7 @@
 import { MdDelete } from "react-icons/md";
 const Post = ({ post }) => {
   return (
-    <div className="card post-card" style={{ width: "18rem" }}>
+    <div className="card post-card">
       <div className="card-body">
         <h5 className="card-title">
           {post.title}
