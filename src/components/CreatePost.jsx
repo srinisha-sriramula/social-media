@@ -64,7 +64,7 @@ const CreatePost = () => {
           ref={postBodyElement}
           rows="4"
           className="form-control"
-          id="title"
+          id="body"
           placeholder="Tell us more about it"
         />
       </div>
@@ -77,7 +77,7 @@ const CreatePost = () => {
           type="text"
           ref={reactionsElement}
           className="form-control"
-          id="title"
+          id="reactions"
           placeholder="How many people reacted to this post"
         />
       </div>
