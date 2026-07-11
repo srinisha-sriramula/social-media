@@ -1,35 +1,40 @@
-import { useRef } from "react"; 
+import { useRef } from "react";
 import { PostList } from "../store/post-list-store";
 import { useContext } from "react";
 
 const CreatePost = () => {
-    const {addPost}=useContext(PostList);
-  
+  const { addPost } = useContext(PostList);
+
   const userIdElement = useRef();
   const postTitleElement = useRef();
   const postBodyElement = useRef();
   const reactionsElement = useRef();
   const tagsElement = useRef();
+  const likesElement = useRef();
+  const dislikesElement = useRef();
 
-  const handleSubmit=(event)=>{
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const userId=userIdElement.current.value;
-    const postTitle=postTitleElement.current.value;
-    const postBody=postBodyElement.current.value;
-    const reactions=reactionsElement.current.value;
-    const tags=tagsElement.current.value.split(' ');
+    const userId = userIdElement.current.value;
+    const postTitle = postTitleElement.current.value;
+    const postBody = postBodyElement.current.value;
+    // const reactions = reactionsElement.current.value;
+    const tags = tagsElement.current.value.split(" ");
+    const likes = likesElement.current.value;
+    const dislikes = dislikesElement.current.value;
 
-    userIdElement.current.value="";
-    postTitleElement.current.value="";
-    postBodyElement.current.value="";
-    reactionsElement.current.value="";
-    tagsElement.current.value="";
+    userIdElement.current.value = "";
+    postTitleElement.current.value = "";
+    postBodyElement.current.value = "";
+    // reactionsElement.current.value = "";
+    tagsElement.current.value = "";
+    likesElement.current.value = "";
+    dislikesElement.current.value = "";
 
-
-    addPost(userId,postTitle,postBody,reactions,tags)
+    addPost(userId, postTitle, postBody, likes, dislikes, tags);
   };
   return (
-    <form className="create-post"  onSubmit={handleSubmit}>
+    <form className="create-post" onSubmit={handleSubmit}>
       <div className="mb-3">
         <label htmlFor="userId" className="form-label">
           Enter your userId
@@ -69,7 +74,7 @@ const CreatePost = () => {
         />
       </div>
 
-      <div className="mb-3">
+      {/* <div className="mb-3">
         <label htmlFor="reactions" className="form-label">
           Number Of Reactions
         </label>
@@ -80,7 +85,34 @@ const CreatePost = () => {
           id="reactions"
           placeholder="How many people reacted to this post"
         />
+      </div> */}
+
+      <div className="mb-3">
+        <label htmlFor="likes" className="form-label">
+          Likes
+        </label>
+        <input
+          type="text"
+          ref={likesElement}
+          className="form-control"
+          id="likes"
+          placeholder="Enter likes"
+        />
       </div>
+
+      <div className="mb-3">
+        <label htmlFor="dislikes" className="form-label">
+          Dislikes
+        </label>
+        <input
+          type="text"
+          ref={dislikesElement}
+          className="form-control"
+          id="dislikes"
+          placeholder="Enter dislikes"
+        />
+      </div>
+
       <div className="mb-3">
         <label htmlFor="tags" className="form-label">
           Enter your hashtags
