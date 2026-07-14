@@ -31,7 +31,25 @@ const CreatePost = () => {
     likesElement.current.value = "";
     dislikesElement.current.value = "";
 
-    addPost(userId, postTitle, postBody, likes, dislikes, tags);
+    fetch("https://dummyjson.com/posts/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: Date.now(),
+        title: postTitle,
+        body: postBody,
+        // reactions: reactions,
+
+        reactions: {
+          likes,
+          dislikes,
+        },
+        userId: userId,
+        tags: tags,
+      }),
+    })
+      .then((res) => res.json())
+      .then((post) => addPost(post));
   };
   return (
     <form className="create-post" onSubmit={handleSubmit}>
