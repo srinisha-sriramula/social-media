@@ -5,7 +5,7 @@ export const PostList = createContext({
   fetching: false,
   addPost: () => {},
   deletePost: () => {},
-  // addInitialPosts: () => {},
+  
 });
 
 const postListReducer = (currPostList, action) => {
@@ -78,22 +78,5 @@ const PostListProvider = ({ children }) => {
     </>
   );
 };
-// const DEFAULT_POST_LIST = [
-//   {
-//     id: "1",
-//     title: "going to mumbai",
-//     body: "hi friends,i am going to mumbai for my vacations.hope to enjoy a lot",
-//     reactions: 2,
-//     userId: "user-9",
-//     tags: ["vacation", "mumbai"],
-//   },
-//   {
-//     id: "2",
-//     title: "going to goa",
-//     body: "hi friends,i am going to goa for my vacations.hope to enjoy a lot",
-//     reactions: 15,
-//     userId: "user-12",
-//     tags: ["unbelievable", "graduaton"],
-//   },
-// ];
+
 export default PostListProvider;
