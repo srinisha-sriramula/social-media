@@ -52,7 +52,11 @@ const CreatePost = () => {
     })
       .then((res) => res.json())
       .then((post) => {
-        addPost(post);
+        addPost({
+          ...post,
+          id: crypto.randomUUID(),
+        });
+
         navigate("/");
       });
   };
