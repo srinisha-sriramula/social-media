@@ -1,11 +1,16 @@
-import { createContext,useCallback, useReducer, useState, useEffect  } from "react";
+import {
+  createContext,
+  useCallback,
+  useReducer,
+  useState,
+  useEffect,
+} from "react";
 
 export const PostList = createContext({
   postList: [],
   fetching: false,
   addPost: () => {},
   deletePost: () => {},
-  
 });
 
 const postListReducer = (currPostList, action) => {
@@ -23,7 +28,11 @@ const postListReducer = (currPostList, action) => {
 };
 
 const PostListProvider = ({ children }) => {
-  const [postList, dispatchPostList] = useReducer(postListReducer, []);
+  // const [postList, dispatchPostList] = useReducer(postListReducer, []);
+  const [postList, dispatchPostList] = useReducer(postListReducer, [], () => {
+    const savedPosts = localStorage.getItem("posts");
+    return savedPosts ? JSON.parse(savedPosts) : [];
+  });
   const [fetching, setFetching] = useState(false);
 
   const addPost = (post) => {
@@ -51,28 +60,52 @@ const PostListProvider = ({ children }) => {
     });
   };
 
-  useEffect(() => {
-    setFetching(true);
-    const controller = new AbortController();
-    const signal = controller.signal;
+  // useEffect(() => {
+  //   setFetching(true);
+  //   const controller = new AbortController();
+  //   const signal = controller.signal;
 
-    fetch("https://dummyjson.com/posts", { signal })
+  //   fetch("https://dummyjson.com/posts", { signal })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       addInitialPosts(data.posts);
+  //       setFetching(false);
+  //     });
+
+  //   return () => {
+  //     console.log("Cleaning up UseEffect.");
+  //     controller.abort();
+  //   };
+  // }, []);
+
+  useEffect(() => {
+    if (postList.length > 0) return;
+
+    setFetching(true);
+
+    const controller = new AbortController();
+
+    fetch("https://dummyjson.com/posts", {
+      signal: controller.signal,
+    })
       .then((res) => res.json())
       .then((data) => {
         addInitialPosts(data.posts);
         setFetching(false);
       });
 
-    return () => {
-      console.log("Cleaning up UseEffect.");
-      controller.abort();
-    };
+    return () => controller.abort();
   }, []);
+
+  useEffect(() => {
+    if (postList.length > 0) {
+      localStorage.setItem("posts", JSON.stringify(postList));
+    }
+  }, [postList]);
+
   return (
     <>
-      <PostList.Provider
-        value={{ postList,fetching, addPost, deletePost,  }}
-      >
+      <PostList.Provider value={{ postList, fetching, addPost, deletePost }}>
         {children}
       </PostList.Provider>
     </>
